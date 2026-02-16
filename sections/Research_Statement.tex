@@ -2,20 +2,33 @@ My research focuses on the development and characterization of multiscale and mu
 
 My research is at the cutting-edge of computing, often making use of leadership class computing resources. These supercomputers are akin to a telescope, or other large scientific instrument in terms of capital investment, and proposal-driven allocations.
 
-The following is a brief description of my groups capabilities and future looking directions. 
+The following is a brief description of my group's capabilities and future looking directions.
+
+\subsubsection{Multiscale Simulations}
 
 My PhD thesis focused on understanding the physics of fibrous materials with a particular focus on enabling multiscale simulations through understanding size-effects and the development of a GPU accelerated multiscale infrastructure \cite{mersonNewOpensourceFramework2024}.
 
-Through two years of funding from IBM \cite{IBMAIRC2023,IBMFCRC2024}, this infrastructure has been extended to support thermal simulations of microelectronic devices \cite{ithermModeling2025,mersonItherm2026}
+Through two years of funding from IBM \cite{IBMAIRC2023,IBMFCRC2024}, this infrastructure has been extended to support thermal simulations of next-generation microelectronic devices \cite{ithermModeling2025,mersonItherm2026}. To accommodate higher transistor densities, modern microelectronic devices make use of advanced packaging strategies such as 3DIC stacking and backside power delivery which place the back end of the line (wiring) into the critical path for heat flow. Modeling this requires the ability to resolve features with over nine orders of magnitude of separation in length scales.
 
-Multiscale simulation methods:
-- microelectronics
-- fibrous materials
-- linkages to AI/ML methods?
+For these simulations to be industrially relevant, they must be able to be performed as part of the design process. To that end, we have developed an automated workflow for steady-state \cite{ithermModeling2025} and transient \cite{mersonItherm2026} simulations. This workflow ingests industry standard design files such as GDSII and OASIS files and automatically constructs Parsolid CAD models, meshes those models and performs thermal homogenization. We anticipate further accelerating this approach with a multiscale machine learning approach similar to our recent work with fibrous materials \cite{parvezMachineLearningApproach2024}.
 
-Code Coupling methods:
-- Fusion:
-Support for complex geometries
-- linkages to AI/ML
+\textbf{Impact:} My group's multiscale infrastructure enables thermal simulations of next-generation microelectronic devices that enable thermally aware design.
 
-My research program provides key capabilities that accelerate scientific discovery and support critical simulations in growing areas of national need.
+\subsubsection{Code Coupling}
+The second key piece of infrastructure that my group has developed is the Parallel Coupler for Multimodel Simulations (PCMS) \cite{mersonPCMS2025}. PCMS is a general purpose coupling tool that can be used to perform coupling of existing, exascale-enabled simulation codes without requiring modifications to algorithms or data structures. Many of the features of PCMS have grown from the needs of coupling specialized fusion simulation codes; physics preserving field transfer operators, support for physics-based coordinate systems, support for modal and spatially resolved data, handling complex geometries, and effective parallel control during exascale simulations.
+
+PCMS has been a component of a number of funded grants from the U.S. Department of Energy to provide code-coupling capabilities \cite{CEDA, StellFoundry, HiFiStell,SimmetrixSBIR2023,SimmetrixSBIR2024,OASIS,OASIS2}. Due to the nature of multidisciplinary collaborative work, relevant application publications making use of PCMS are in preparation (targeting submission by August 2026).
+
+As part of our work on PCMS-based coupling, we identified a major gap in the capabilities of current neutronics codes to handle unstructured meshes on GPUs. And in their ability to provide smooth function representations on unstructured meshes. Therefore, we built a new GPU accelerated unstructured mesh tally system that has been integrated with OpenMC \cite{hasanGPUAccelerationMonte2025}. We have also initiated work on continuous tallies on unstructured meshes that are consistent with FEM representations \cite{mersonSpatiallyContinuousTally2026}.
+
+Many fusion simulations require five- or six-dimensional field transfer operations that conserve integral quantities. Additionally, it is of increasing interest to have simulation workflows that can couple to machine learning-based surrogate models that do not have a mesh representation. To this end, we have developed a new conservative coupling method that affords black-box coupling and is readily extensible to higher dimensions \cite{Paudel2026MCFT}.
+
+The deployment of strongly coupled multiphysics simulations remain somewhat limited to their high computational cost. However, the tools my group is developing present an ideal platform for enabling machine learning based workflows. Two pending proposals to the NSF Office of Advanced Cyberinfrastructure seek to obtain funding for carrying out this goal.
+
+In \cite{CAREER2025} I seek to extend PCMS to support scenarios where multiple simulation capabilities exist (such as surrogate models, multiscale models, etc.) and provide infrastructure to combine them into a unified definition including uncertainty information.
+
+In \cite{CSSI2025} I seek to utilize the capabilities of PCMS to replace ad-hoc mapping between unstructured meshes and tensor structured inputs to machine learning models. Additional functionality will be added to support ensembles and to perform Bayesian informed sampling and parameter estimation.
+
+\textbf{Impact:} PCMS provides infrastructure that supports key coupled fusion simulations workflows and provides a future looking path towards integrated simulation and machine learning workflows.
+
+In summary, my research program provides key capabilities that accelerate scientific discovery and support critical simulations in growing areas of national need.

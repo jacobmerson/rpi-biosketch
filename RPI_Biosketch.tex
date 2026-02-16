@@ -45,59 +45,87 @@
 % 2. Create a counter to track items in the CURRENT list
 \newcounter{localbibcount}
 
-% 3. When a bibliography starts:
+% 3. Flag to distinguish bibliography context from inline \cite
+\newif\ifbbx@inbib
+
+% 4. When a bibliography starts:
 %    - Increment the list ID (so this list has a unique name)
 %    - Reset the local item counter
+%    - Set the in-bibliography flag
 \AtBeginBibliography{%
   \stepcounter{biblistid}%
   \setcounter{localbibcount}{0}%
+  \bbx@inbibtrue
 }
 
-% 4. Count every item printed
-\AtEveryBibitem{\stepcounter{localbibcount}}
+% 5. Count every item printed.
+%    Only the FIRST bibliography that prints an entry is recorded, so that
+%    \cite prefers conference proceedings over lectures.
+%    We pre-expand the entry key with \edef to avoid fragile nested \csname
+%    inside \write and \ifcsundef.
+\AtEveryBibitem{%
+  \stepcounter{localbibcount}%
+  \edef\bbx@curkey{\csname abx@field@entrykey\endcsname}%
+  \ifcsundef{bbx@mapped@\bbx@curkey}{%
+    \csgdef{bbx@mapped@\bbx@curkey}{}%
+    % Save list ID and raw position in aux file (numbers only — safe to \write)
+    \immediate\write\@auxout{%
+      \string\csgdef{biblistof:\bbx@curkey}{\number\value{biblistid}}%
+    }%
+    \immediate\write\@auxout{%
+      \string\csgdef{bibrawnum:\bbx@curkey}{\number\value{localbibcount}}%
+    }%
+    % Save the label prefix at runtime (avoids \write expansion issues)
+    \ifcsundef{abx@field@labelprefix}{}{%
+      \expandafter\xdef\csname bbx@savedprefix@\bbx@curkey\endcsname{%
+        \csname abx@field@labelprefix\endcsname}%
+    }%
+  }{}%
+}
 
-%% Broken attempt to fix references later
-%\AtEveryBibitem{%
-%  \stepcounter{localbibcount}%
-%  \immediate\write\@auxout{%
-%    \string\csgdef{biblistof:\thefield{entrykey}}{\number\value{biblistid}}%
-%  }%
-%}
-
-% 5. Save the total for THIS specific list ID
+% 6. Save the total for THIS specific list ID and clear the in-bib flag
 \appto\blx@endbibliography{%
   \immediate\write\@auxout{%
-    % We use \thebiblistid to create a unique variable for this specific list
     \string\csgdef{totalcount:\number\value{biblistid}}{\number\value{localbibcount}}%
   }%
+  \bbx@inbibfalse
 }
 
-% 6. The Label Format
-%    We must check which list we are currently inside.
+% 7. Override the label prefix for inline citations so it matches
+%    the first bibliography (e.g. C instead of CL).
+\AtEveryCitekey{%
+  \ifbbx@inbib\else
+    \edef\bbx@curkey{\csname abx@field@entrykey\endcsname}%
+    \ifcsundef{bbx@savedprefix@\bbx@curkey}{}{%
+      \edef\abx@field@labelprefix{%
+        \csuse{bbx@savedprefix@\bbx@curkey}}%
+    }%
+  \fi
+}
+
+% 8. The Label Format
+%    Inside a bibliography: use \value{biblistid} directly (always correct,
+%    even when an entry appears in multiple printed bibliographies).
+%    In an inline \cite: use the saved raw position and list ID from the
+%    first bibliography that printed the entry.
 \DeclareFieldFormat{labelnumber}{\mkbibdesc{#1}}
 \newrobustcmd*{\mkbibdesc}[1]{%
-  % Check if the total exists for this specific list ID
-  \ifcsundef{totalcount:\number\value{biblistid}}
-    {#1} % Fallback (first run)
-    {%
-      % Calculation: Total (for this list) + 1 - Current Label
-      \number\numexpr\csuse{totalcount:\number\value{biblistid}} + 1 - #1\relax%
-    }%
+  \ifbbx@inbib
+    % Inside bibliography: current biblistid is always right
+    \ifcsundef{totalcount:\number\value{biblistid}}
+      {#1}%
+      {\number\numexpr\csuse{totalcount:\number\value{biblistid}} + 1 - #1\relax}%
+  \else
+    % Inline citation: use saved raw number from the first bibliography
+    \edef\bbx@curkey{\csname abx@field@entrykey\endcsname}%
+    \ifcsundef{bibrawnum:\bbx@curkey}
+      {#1}% first run fallback
+      {\ifcsundef{totalcount:\csuse{biblistof:\bbx@curkey}}
+        {#1}%
+        {\number\numexpr\csuse{totalcount:\csuse{biblistof:\bbx@curkey}} + 1 - \csuse{bibrawnum:\bbx@curkey}\relax}%
+      }%
+  \fi
 }
-%% Broken attempt to fix references
-%  \newrobustcmd*{\mkbibdesc}[1]{%
-%    \ifcsundef{biblistof:\strfield{entrykey}}
-%      {% Fallback (first run)
-%        \ifcsundef{totalcount:\number\value{biblistid}}
-%          {#1}
-%          {\number\numexpr\csuse{totalcount:\number\value{biblistid}} + 1 - #1\relax}%
-%      }
-%      {% Use the saved list ID so inline cites get the correct total
-%        \ifcsundef{totalcount:\csuse{biblistof:\strfield{entrykey}}}
-%          {#1}
-%          {\number\numexpr\csuse{totalcount:\csuse{biblistof:\strfield{entrykey}}} + 1 - #1\relax}%
-%      }%
-%  }
 \makeatother
 %%-- End of Reverse Numbering --%%
 % TODO consider refactoring to use \defbibcheck instead of \defbibfilter since that can be used
@@ -307,9 +335,11 @@ RENSSELAER POLYTECHNIC INSTITUTE}
 \subsubsubsection{Doctoral (Thesis Supervision)}
 \input{sections/Students_PhD}
 
-
 \subsubsubsection{Post-doctoral Mentorship}
 \input{sections/Students_PD}
+
+\subsubsection{Masters and Doctoral Committees}
+\input{sections/Students_committee}
 
 %\subsubsubsection{Visiting Scholars}
 %\input{sections/Students_Visiting}
@@ -442,12 +472,7 @@ RENSSELAER POLYTECHNIC INSTITUTE}
 %\subsection*{Memberships}
 \input{sections/ServiceMember}
 
-%\subsection*{Service to Professional Societies}
-%\input{sections/EditorishipConf}
-
-
-%%\subsection*{Community and Public Service}
-%\input{sections/community_public}
+\subsection{Community and Public Service}
 
 
 \section{Professional and Public Lectures}
