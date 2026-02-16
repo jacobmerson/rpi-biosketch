@@ -20,7 +20,7 @@
   \iffieldundef{inkind}{}{\printtext{In-Kind Support:\addcolon\addspace}\printfield{inkind} \newblock}
   \iffieldundef{amount}{}{\printtext{Funding\addcolon\addspace}\printfield[money]{amount} \newblock}
   \iffieldundef{myamount}{}{
-    \printtext{My amnt\addcolon\addspace}\printfield[money]{myamount}
+    \printtext{My Share\addcolon\addspace}\printfield[money]{myamount}
     \iffieldundef{percent}{}{\mkbibparens{\printfield{percent}}}
     \newblock
   }

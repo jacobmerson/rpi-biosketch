@@ -6,7 +6,7 @@ The following is a brief description of my group's capabilities and future looki
 
 \subsubsection{Multiscale Simulations}
 
-My PhD thesis focused on understanding the physics of fibrous materials with a particular focus on enabling multiscale simulations through understanding size-effects and the development of a GPU accelerated multiscale infrastructure \cite{mersonNewOpensourceFramework2024}.
+My PhD thesis focused on understanding the physics of fibrous materials with a particular focus on enabling multiscale simulations through understanding size-effects and the development of a GPU accelerated multiscale infrastructure \cite{mersonSizeEffectsRandom2020,mersonNewOpensourceFramework2024}.
 
 Through two years of funding from IBM \cite{IBMAIRC2023,IBMFCRC2024}, this infrastructure has been extended to support thermal simulations of next-generation microelectronic devices \cite{ithermModeling2025,mersonItherm2026}. To accommodate higher transistor densities, modern microelectronic devices make use of advanced packaging strategies such as 3DIC stacking and backside power delivery which place the back end of the line (wiring) into the critical path for heat flow. Modeling this requires the ability to resolve features with over nine orders of magnitude of separation in length scales.
 
@@ -17,7 +17,7 @@ For these simulations to be industrially relevant, they must be able to be perfo
 \subsubsection{Code Coupling}
 The second key piece of infrastructure that my group has developed is the Parallel Coupler for Multimodel Simulations (PCMS) \cite{mersonPCMS2025}. PCMS is a general purpose coupling tool that can be used to perform coupling of existing, exascale-enabled simulation codes without requiring modifications to algorithms or data structures. Many of the features of PCMS have grown from the needs of coupling specialized fusion simulation codes; physics preserving field transfer operators, support for physics-based coordinate systems, support for modal and spatially resolved data, handling complex geometries, and effective parallel control during exascale simulations.
 
-PCMS has been a component of a number of funded grants from the U.S. Department of Energy to provide code-coupling capabilities \cite{CEDA, StellFoundry, HiFiStell,SimmetrixSBIR2023,SimmetrixSBIR2024,OASIS,OASIS2}. Due to the nature of multidisciplinary collaborative work, relevant application publications making use of PCMS are in preparation (targeting submission by August 2026).
+PCMS has been a component of a number of funded grants from the U.S. Department of Energy to provide code-coupling capabilities \cite{StellFoundry, HiFiStell,CEDA,SimmetrixSBIR2024,SimmetrixSBIR2023,OASIS,OASIS2}. Due to the nature of multidisciplinary collaborative work, relevant application publications making use of PCMS are in preparation (targeting submission by August 2026).
 
 As part of our work on PCMS-based coupling, we identified a major gap in the capabilities of current neutronics codes to handle unstructured meshes on GPUs. And in their ability to provide smooth function representations on unstructured meshes. Therefore, we built a new GPU accelerated unstructured mesh tally system that has been integrated with OpenMC \cite{hasanGPUAccelerationMonte2025}. We have also initiated work on continuous tallies on unstructured meshes that are consistent with FEM representations \cite{mersonSpatiallyContinuousTally2026}.
 
