@@ -1,0 +1,47 @@
+\ProvidesFile{RPIBiosketch.bbx}[2026 citation formats for biosketch]
+\RequireBibliographyStyle{acmnumeric}
+
+% make numbers use period not brackets
+\DeclareFieldFormat{labelnumberwidth}{#1\adddot}
+
+% num from sciunitx for formatting dollar amounts
+\newcommand{\printdollars}[1]{%
+  \$\num{#1}%
+}
+\DeclareFieldFormat{money}{\printdollars{#1}}
+\DeclareFieldFormat{percent}{\num{#1}\,\%}
+
+%% proposal driver
+\DeclareBibliographyDriver{proposal}{%
+  \printtext{Title\addcolon\addspace}\printfield{title}\newblock
+  \printtext{PI\addcolon\addspace}\printnames{pi}\newblock
+  \ifnameundef{copi}{}{\printtext{Co-PI\addcolon\addspace}\printnames{copi}\newblock}
+  \printtext{Award Period\addcolon\addspace}\printdate\newblock
+  \iffieldundef{inkind}{}{\printtext{In-Kind Support:\addcolon\addspace}\printfield{inkind} \newblock}
+  \iffieldundef{amount}{}{\printtext{Funding\addcolon\addspace}\printfield[money]{amount} \newblock}
+  \iffieldundef{myamount}{}{
+    \printtext{My amnt\addcolon\addspace}\printfield[money]{myamount}
+    \iffieldundef{percent}{}{\mkbibparens{\printfield{percent}}}
+    \newblock
+  }
+  \printtext{Source\addcolon\addspace}\printfield{organization}
+  \usebibmacro{finentry}
+}
+
+%% setup annotations for papers
+%% toggle to turn on/off
+\newtoggle{bbx@annotatepresenter}
+\togglefalse{bbx@annotatepresenter}
+%
+%
+%
+\renewcommand*{\mkbibnamegiven}[1]{\ifitemannotation{presenter}{\mkbibbold{#1}}{#1}}
+\renewcommand*{\mkbibnamefamily}[1]{\ifitemannotation{presenter}{\mkbibbold{#1}}{#1}%
+\ifitemannotation{first}{\textsuperscript{*}}{}%
+\ifitemannotation{corresponding}{\textsuperscript{\S}}{}%
+\ifitemannotation{bs}{$^\dag$}{}%
+\ifitemannotation{ms}{$^\ddag$}{}%
+\ifitemannotation{phd}{\textsuperscript{\#}}{}%
+\ifitemannotation{postdoc}{\textsuperscript{+}}{}%
+}%%
+\endinput

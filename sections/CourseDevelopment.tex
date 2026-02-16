@@ -1,0 +1,43 @@
+\subsubsection{Teaching Philosophy}
+I believe that my job in the classroom is to give students ``superpowers''. First, the ability to employ the engineering method to break down complex problems and make justified approximations. Second, the ability to use numerical methods to amplify their knowledge, providing a competitive edge in their future careers. And most importantly, the confidence to be unsure--impactful engineering is as much about what we don't know as it is about what we do know. Decisions made by our graduates have impacts on the human health and safety, and they must understand the weight of that responsibility and how to manage those decisions under uncertainty.
+
+Higher education is facing unprecedented challenges to attract and retain students. This pressure is translated to the classroom through an emphasis on making students happy and obtaining high course reviews. Many interpret this pressure as a downward force requiring less rigorous instruction. Indeed, many students have not developed the tools to engage with uncertainty, instead seeking immediate validation from pre-digested content, whether from AI; short form videos; or other formats. In light of these challenges, the first critical issue as an instructor is fostering sustained engagement with the material, beyond seeking grades.
+
+To this end, I utilize a multistage approach. First, I make use of positive reinforcement to promote class engagement including rewards for providing incorrect answers. Second, I utilize industrial and research-based examples in class. And lastly, I emphasize RPI alumni and their achievements related to the software and methods we use in class, or leadership roles in engineering firms.
+ 
+Although these strategies have proven to be effective for initiating engagement, sustaining that engagement has proven to be more difficult, especially with numerical methods classes that require a new type of algorithmic thinking that they may not have exposure to in previous classes. This challenge has presented a challenge for the finite element methods class that I recently helped to redesign. In our initial implementation, we introduced too many concepts quickly at the beginning of the course, expecting that students would ask questions and clarify where they were struggling. Instead, we saw a large drop-off in attendance and poor test grades. Upon discussion with students in my lab section, it became clear that the initial introduction to the material was too dense, so the students gave up without requesting clarification. To counteract this, I have started to implement additional background lectures that ensure students remember key mathematics. This change has improved lecture attendance, course evaluations, and test grades.
+
+It is clear that shifting technology has an enormous impact on education. In my classes, I aim to use technology to help students more quickly understand concepts and develop critical thinking skills. To that end, I have developed a number of in-class demonstrations and assignments that require the use of programming, or other numerical analysis tools and commercial solvers. To date, I have found AI models to be largely detrimental to this learning process and I emphasize that putting in effort towards learning how to think, and fundamental skills is the most critical course outcome.
+
+One observation I have repeatedly had, and a reason that students often reach towards AI models, or other pre-digested material is that students are afraid to be wrong. One way that I seek to counteract this is by doing live programming demonstrations in class where I make mistakes (intentionally, or not). If the code fails to compile, run, or provides surprising results, I use it as an opportunity to demonstrate the debugging process. For example, I would walk through the Python backtrack and explain my process for fixing my mistake. I also emphasize that it's ok to experiment and have errors. The real fun is in figuring out what's wrong and how to fix it.
+
+\subsubsection{Curriculum Development}
+\begin{description}
+
+
+\item[MANE 4240/6660 -- Finite Element Methods]
+
+I have led the integration of modern software technologies into a new version of the Finite Element Course that was jointly developed by Prof. Mark Shephard and me. The goal of the new course is to emphasize finite elements as a general framework for solving partial differential equations.
+
+This redesigned course provides students with a deeper conceptual understanding of the finite element method, enabling them to more effectively identify, analyze, and resolve issues that commonly arise when using industry-standard finite element codes.
+
+The course is split into lectures that cover theoretical aspects and a practicum section that is used for tutorials that provide students with additional contact with the material they are struggling with as well as hands-on practice with commerical and open-source finite element workflows.
+
+These workflows include a FEniCS based workflow that is used to help students quickly see the connection between the weak formulation and a tool that can solve PDEs on complex geometries. This tool also provides a platform that students can use to experiment with solving other PDEs that they are exposed to in their classes that may not be implemented in commercial FEM solvers. Many of the graduate students have adopted FEniCS-based workflows for their research after taking the FEM class.
+
+The second workflow is based on a commercial FEM solver (NX/NASTRAN) and is geared towards providing undergraduate students with exposure to the types of software that they will use in industry. Many of the undergraduate students make use of these FEM workflows for their capstone projects.
+
+\item[MANE 6965 -- Advanced Computing for Engineering and Science Software at Scale]
+
+I have developed this course to introduce concepts and best practices for the design of scientific and engineering software applications that are maintainable and capable of running at scale on massively parallel and heterogeneous computing platforms. The software methodologies covered in this course are applied to scientific and engineering contexts such as finite element simulations and multiscale/multiphysics modeling. Students are expected to have prior programming experience and familiarity with shared-memory or distributed-memory parallel programming.
+
+The first time I taught this course, I realized that students have had limited exposure to the tooling such as version control (git), build systems, and continuous integration/testing that make modern software projects feasible. I therefore, devoted significant instructional time on these aspects. Students have found this to be quite helpful and I have heard feedback from other faculty that this helped to improve the quality and capability of their students research.
+
+In the first iteration of this course, I largely focused on individual assignments that required students demonstrate and apply the key skills and methods such as GPU programming, abstractions, testing, etc. These assignments were designed to build upon each other throughout the semester. Students were additionally required to provide and respond to code reviews. In the last assignment I had students work and collaborate in small teams which they found to be both challenging, but rewarding.
+
+In the next iteration of the course, I am planning to make more of the assignments into group assignments. This format seemed to provide a more accelerated learning environment that pushed students to write code and documentation that others could read, rather than just for themselves.
+
+Students were also expected to complete a final project where they applied the methods learned in the class to their research. Students are encouraged to encouraged to submit their software to the Journal of Open Source Software. I have received positive feedback from multiple faculty colleagues that this had a positive impact on their research.
+
+\end{description}
+% Young man, in mathematics you don't understand things. You just get used to them. --- John von Neumann

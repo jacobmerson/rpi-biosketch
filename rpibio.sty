@@ -1,0 +1,48 @@
+\usepackage{etaremune}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{longtable}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[]{hyperref}
+\hypersetup{
+    colorlinks=true,
+    urlcolor=Black,
+    linkcolor=Blue,
+    filecolor=Blue,
+}
+
+
+\titlespacing\section{0pt}{12pt plus 4pt minus 2pt}{3pt plus 2pt minus 2pt}
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4} 
+
+\titleformat{\section}
+{\large \bfseries  \color{black}}{\thesection}{.5em}{}
+\renewcommand\thesection{\Roman{section}.}
+
+\titleformat{\subsection}
+{\large \bfseries  \color{black}}{\thesubsection}{.5em}{}
+\renewcommand\thesubsection{\Alph{subsection}.}
+%\titlespacing*{\subsection}{2em}{0pt}{0.5\baselineskip} 
+
+
+\titleformat{\subsubsection}
+{\large \bfseries  \color{Black}}{\thesubsubsection}{.5em}{}
+\renewcommand\thesubsubsection{\arabic{subsubsection}.}
+
+\titleclass{\subsubsubsection}{straight}[\subsubsection]
+\newcounter{subsubsubsection}[subsubsection]
+\renewcommand\thesubsubsubsection{\thesubsubsection.\arabic{subsubsubsection}}
+\titleformat{\subsubsubsection}
+  {\normalfont\normalsize\bfseries}{\thesubsubsubsection}{.5em}{}
+\titlespacing*{\subsubsubsection}
+  {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+ \renewcommand\thesubsubsubsection{\alph{subsubsubsection}.}
+
+% this code block should set set up the level of the heading for hyperref / TOC
+\makeatletter
+\providecommand*{\toclevel@subsubsubsection}{4}
+\providecommand*{\l@subsubsubsection}{\@dottedtocline{4}{7em}{4em}}
+\@namedef{Hy@toclevel@subsubsubsection}{4}% instead of \Hy@newcommand...
+\makeatother

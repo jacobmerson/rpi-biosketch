@@ -1,0 +1,511 @@
+\documentclass[11 pt]{article}
+\usepackage[margin=3cm]{geometry}
+
+% Setting the fonts
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+
+% Set line spacing
+\renewcommand{\baselinestretch}{1.1}
+
+\usepackage{rpibio}
+
+\usepackage[multiple]{footmisc}
+
+% Used for formatting funding amounts in biblatex with num
+\usepackage{siunitx}
+\sisetup{
+  group-separator = {,},
+  group-minimum-digits = 4
+}
+
+\usepackage{etoolbox}
+\usepackage[
+  backend=biber,
+  style=RPIBiosketch,
+  defernumbers=true,
+  sorting=ydnt,
+  eprint=false,
+  datamodel=RPIBiosketch
+]{biblatex}
+
+\providecommand{\bibliofont}{}
+\addbibresource{sections/publications.bib}
+\addbibresource{sections/grants.bib}
+
+%% We used this and some help from gemini to get the reverse numbering
+%% https://tex.stackexchange.com/questions/21401/biblatex-reverse-numbering-i-e-count-down
+%\makeatletter
+\makeatletter
+
+% 1. Create a global counter to distinguish between different bibliographies
+\newcounter{biblistid}
+\setcounter{biblistid}{0}
+
+% 2. Create a counter to track items in the CURRENT list
+\newcounter{localbibcount}
+
+% 3. When a bibliography starts:
+%    - Increment the list ID (so this list has a unique name)
+%    - Reset the local item counter
+\AtBeginBibliography{%
+  \stepcounter{biblistid}%
+  \setcounter{localbibcount}{0}%
+}
+
+% 4. Count every item printed
+\AtEveryBibitem{\stepcounter{localbibcount}}
+
+%% Broken attempt to fix references later
+%\AtEveryBibitem{%
+%  \stepcounter{localbibcount}%
+%  \immediate\write\@auxout{%
+%    \string\csgdef{biblistof:\thefield{entrykey}}{\number\value{biblistid}}%
+%  }%
+%}
+
+% 5. Save the total for THIS specific list ID
+\appto\blx@endbibliography{%
+  \immediate\write\@auxout{%
+    % We use \thebiblistid to create a unique variable for this specific list
+    \string\csgdef{totalcount:\number\value{biblistid}}{\number\value{localbibcount}}%
+  }%
+}
+
+% 6. The Label Format
+%    We must check which list we are currently inside.
+\DeclareFieldFormat{labelnumber}{\mkbibdesc{#1}}
+\newrobustcmd*{\mkbibdesc}[1]{%
+  % Check if the total exists for this specific list ID
+  \ifcsundef{totalcount:\number\value{biblistid}}
+    {#1} % Fallback (first run)
+    {%
+      % Calculation: Total (for this list) + 1 - Current Label
+      \number\numexpr\csuse{totalcount:\number\value{biblistid}} + 1 - #1\relax%
+    }%
+}
+%% Broken attempt to fix references
+%  \newrobustcmd*{\mkbibdesc}[1]{%
+%    \ifcsundef{biblistof:\strfield{entrykey}}
+%      {% Fallback (first run)
+%        \ifcsundef{totalcount:\number\value{biblistid}}
+%          {#1}
+%          {\number\numexpr\csuse{totalcount:\number\value{biblistid}} + 1 - #1\relax}%
+%      }
+%      {% Use the saved list ID so inline cites get the correct total
+%        \ifcsundef{totalcount:\csuse{biblistof:\strfield{entrykey}}}
+%          {#1}
+%          {\number\numexpr\csuse{totalcount:\csuse{biblistof:\strfield{entrykey}}} + 1 - #1\relax}%
+%      }%
+%  }
+\makeatother
+%%-- End of Reverse Numbering --%%
+% TODO consider refactoring to use \defbibcheck instead of \defbibfilter since that can be used
+% for both the printing and counters
+\newcounter{bookcount}
+\newcounter{bookchaptercount}
+\newcounter{peerreviewedjournalcount}
+\newcounter{peerreviewedconferencecount}
+\makeatletter
+\newcommand{\bbx@markpublication}[2]{%
+  \ifcsundef{bbx@pub@#1@#2}{%
+    \expandafter\gdef\csname bbx@pub@#1@#2\endcsname{}%
+    \stepcounter{#1}%
+  }{}%
+}
+\AtDataInput{%
+  \edef\bbx@pubkey{\thefield{entrykey}}%
+  %\ifentrytype{book}{\bbx@markpublication{bookcount}{\bbx@pubkey}}{}%
+  %\ifentrytype{collection}{\bbx@markpublication{bookcount}{\bbx@pubkey}}{}%
+  %\ifentrytype{inbook}{\bbx@markpublication{bookchaptercount}{\bbx@pubkey}}{}%
+  %\ifentrytype{incollection}{\bbx@markpublication{bookchaptercount}{\bbx@pubkey}}{}%
+  \ifboolexpr{ test {\ifkeyword{journal}} and test {\ifkeyword{published}} }{%
+    \bbx@markpublication{peerreviewedjournalcount}{\bbx@pubkey}}{}%
+  \ifboolexpr{ test {\ifkeyword{conference}} and test {\ifkeyword{peerreview}} }{%
+    \bbx@markpublication{peerreviewedconferencecount}{\bbx@pubkey}}{}%
+}
+\makeatother
+
+
+%% counters for article types
+
+\newcommand{\printarticlesummary}{%
+\begin{center}
+  \begin{tabular}{|lc|}
+    \hline
+    \textbf{Publication Category} & \textbf{Count} \\
+    \hline\hline
+    %Books & \arabic{bookcount} \\
+    %Book Chapters & \arabic{bookchaptercount} \\
+    Peer-reviewed Journal & \arabic{peerreviewedjournalcount} \\
+    Peer-reviewed Conference & \arabic{peerreviewedconferencecount} \\
+    \hline
+  \end{tabular}
+\end{center}
+}
+% end counters for article types
+
+% counters for funding summary
+\newcounter{fundedproposalcount}
+\newcounter{fundedtotalamount}
+\newcounter{fundedtotalmyamount}
+\newcounter{fundedinkindproposalcount}
+\newcounter{pendingproposalcount}
+\newcounter{pendinginkindproposalcount}
+\newcounter{pendingtotalamount}
+\newcounter{pendingtotalmyamount}
+
+\makeatletter
+    \newcommand{\bbx@markproposal}[2]{%
+      \ifcsundef{bbx@#1@counted@#2}{%
+        \expandafter\gdef\csname bbx@#1@counted@#2\endcsname{}%
+        % don't count in-kind support
+        \ifkeyword{inkind}{
+          \stepcounter{#1inkindproposalcount}%
+        }
+        {
+        \stepcounter{#1proposalcount}%
+        \iffieldundef{amount}{}{\addtocounter{#1totalamount}{\thefield{amount}}}%
+        \iffieldundef{myamount}{}{\addtocounter{#1totalmyamount}{\thefield{myamount}}}%
+        }%
+      }{}%
+    }
+    \AtDataInput[proposal]{%
+      \edef\bbx@currentkey{\thefield{entrykey}}%
+      \ifkeyword{funded}{\bbx@markproposal{funded}{\bbx@currentkey}}{}%
+      \ifkeyword{pending}{\bbx@markproposal{pending}{\bbx@currentkey}}{}%
+    }
+\makeatother
+\newcommand{\printfundedsummary}{%
+\begin{center}
+  \begin{tabular}{|cccc|}
+    \hline
+    \textbf{Proposal Status} & \textbf{Count} & \textbf{Total Amount} & \textbf{My Share} \\
+    \hline\hline
+    Funded (monetary) & \arabic{fundedproposalcount} & \printdollars{\arabic{fundedtotalamount}} & \printdollars{\arabic{fundedtotalmyamount}} \\
+    Pending (monetary) & \arabic{pendingproposalcount} & \printdollars{\arabic{pendingtotalamount}} & \printdollars{\arabic{pendingtotalmyamount}} \\
+    Funded (in-kind) & \arabic{fundedinkindproposalcount} & - & - \\
+    Pending (in-kind) & \arabic{pendinginkindproposalcount} & - & - \\
+    \hline
+  \end{tabular}
+\end{center}
+}
+%% end of counters for funding summary
+
+\defbibfilter{submitted_journals}{%
+  keyword=journal and
+  keyword=submitted
+}
+
+\defbibfilter{published_journals}{%
+  keyword=journal and
+  keyword=published
+}
+
+\defbibfilter{refereed_conferences}{%
+  keyword=peerreview and keyword=conference
+}
+
+\defbibfilter{abstracts_conferences}{%
+  keyword=conference and not keyword=peerreview
+}
+
+\defbibfilter{invited_lectures}{
+  keyword=invited
+}
+\defbibfilter{contributed_lectures} {
+  keyword=contributed
+}
+\defbibfilter{funded_proposal}{
+  type=proposal and
+  keyword=funded
+}
+\defbibfilter{unfunded_proposal}{
+  type=proposal and
+  keyword=unfunded
+}
+\defbibfilter{pending_proposal}{
+  type=proposal and
+  keyword=pending
+}
+
+%% command for table of contributions
+\newcommand{\contributionstable}{
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Sym.} & \textbf{Description} \\ \hline\hline 
+*& equal contributions \\
+\S& corresponding author(s) \\
+$\dag$ &bachelors student in my lab \\
+$\ddag$&masters student in my lab \\
+\#& Ph.D. student in my lab \\
++& Postdoc in my lab \\
+\textbf{boldface} &presenter\\
+\hline
+\end{tabular}
+\end{center}
+}
+
+% Used to watermark non-final drafts 
+\usepackage[printwatermark]{xwatermark}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{graphicx}
+\newwatermark[allpages,color=red!10,angle=45,scale=3,xpos=-20,ypos=0]{DRAFT}
+
+%\setlength{\headheight}{22pt}
+\lhead{\LARGE \textbf{Jacob S. Merson}}
+\rhead{\Large  \today}
+
+\begin{document}
+\thispagestyle{fancy}
+
+\noindent 
+
+\begin{center}
+{\large BIOGRAPHICAL SKETCH AND PROFESSIONAL ACTIVITIES\\
+RENSSELAER POLYTECHNIC INSTITUTE}
+\end{center}
+\vspace{.05 in}
+
+\section{}
+\vspace{-.25 in}
+\begin{tabular}{ll}
+\textbf{Name:} & \hspace{.7 in} Jacob S. Merson \\
+\textbf{Department:} & \hspace{.7 in}   MANE
+  \\
+\textbf{School:} &\hspace{.7 in}  Engineering\\
+\textbf{Current Rank:} &\hspace{.7 in} Assistant Professor
+\end{tabular}\vspace{.15 in}
+
+\subsection{Academic Appointments}
+\input{sections/Appointments}
+
+\subsection{Educational Preparation}
+\input{sections/education}
+
+%\newpage
+
+\section{Professional Experience}
+\input{sections/experience}
+
+\newpage
+
+\section{Teaching}
+\input{sections/Teaching_Summary}
+
+\subsection{Student Research Supervision}
+\input{sections/supervision_summary}
+ 
+\subsubsection{Thesis Completed}
+\subsubsubsection{Bachelors (Undergraduate Project Supervision)}
+\input{sections/Students_BS}
+
+\subsubsubsection{Masters (Thesis Supervision)}
+\input{sections/Students_MS}
+
+\subsubsubsection{Doctoral (Thesis Supervision)}
+\input{sections/Students_PhD}
+
+
+\subsubsubsection{Post-doctoral Mentorship}
+\input{sections/Students_PD}
+
+%\subsubsubsection{Visiting Scholars}
+%\input{sections/Students_Visiting}
+
+
+\subsection{Course and Curriculum Development}
+\input{sections/CourseDevelopment}
+
+
+\newpage
+\section{Publications}
+\input{sections/Papers_Summary}
+
+\nocite{*}
+\subsection{Books, Monographs, Recordings, Large Scale Musical or Video Works, Commissions}
+\contributionstable
+
+\subsection{Refereed Journal Articles}
+\subsubsection{Submitted}
+\begin{refcontext}[labelprefix=JS]{RJAP}
+\printbibliography[filter=submitted_journals, heading=none,resetnumbers=true]
+\end{refcontext}
+
+\subsubsection{Published}
+  \begin{refcontext}[labelprefix=J]{RJAP}
+    \printbibliography[filter=published_journals, heading=none,resetnumbers=true]
+  \end{refcontext}
+
+\subsection{Conference Proceedings}
+  \subsubsection{Refereed Full Papers}
+  \begin{refcontext}[labelprefix=C]
+    \printbibliography[filter=refereed_conferences, heading=none,resetnumbers=true]
+  \end{refcontext} 
+
+  \subsubsection{Abstracts}
+  \begin{refcontext}[labelprefix=A]
+    \printbibliography[filter=abstracts_conferences, heading=none,resetnumbers=true]
+  \end{refcontext} 
+
+%\end{refsection}
+
+\subsection{Non-refereed Articles, Book Reviews, etc.}
+
+\subsection{Exhibitions, Performances and Recitals}
+\subsubsection{Solo Exhibitions and Recitals}
+\subsubsection{Small Scale Musical or Video Works}
+\subsubsection{Group Exhibitions and Performances, Ensemble Recitals}
+
+\newpage 
+\section{Research Grants and Contract}
+\printfundedsummary % print the summary of funded proposals at the top of this section
+
+%% make a table of entries
+%% need Title, PI, Co-PI, Period, Funding amount, share of funding, souce of funding
+\subsection{Proposals Approved and Funded}
+\subsubsection{Current}
+\subsubsubsection{Research Funding}
+
+\begin{refcontext}[labelprefix=P]
+  \printbibliography[filter=funded_proposal, notkeyword=inkind,notkeyword=completed, block=nbpar, heading=none,resetnumbers=true]
+\end{refcontext} 
+
+\subsubsubsection{In-Kind Research Support (HPC Allocations, and Personnel Time)}
+\begin{refcontext}[labelprefix=PIK]
+  \printbibliography[filter=funded_proposal, keyword=inkind,notkeyword=completed, block=nbpar, heading=none,resetnumbers=true]
+\end{refcontext} 
+
+
+\subsubsection{Complete}
+\subsubsubsection{Research Funding}
+\begin{refcontext}[labelprefix=PC]
+  \printbibliography[filter=funded_proposal, notkeyword=inkind, keyword=completed, block=nbpar, heading=none,resetnumbers=true]
+\end{refcontext} 
+
+\subsubsubsection{In-Kind Research Support (HPC Allocations, and Personnel Time)}
+\begin{refcontext}[labelprefix=PCIK]
+  \printbibliography[filter=funded_proposal, keyword=inkind,keyword=completed, block=nbpar, heading=none,resetnumbers=true]
+\end{refcontext}
+
+\subsection{Proposals Submitted and Not Funded with Current Status}
+\subsubsection{Proposals in Review}
+
+\subsubsubsection{Research Funding}
+\begin{refcontext}[labelprefix=PR]
+  \printbibliography[filter=pending_proposal, notkeyword=inkind, block=nbpar, heading=none,resetnumbers=true]
+\end{refcontext} 
+
+\subsubsubsection{In-Kind Research Support (HPC Allocations, and Personnel Time)}
+\begin{refcontext}[labelprefix=PRIK]
+  \printbibliography[filter=pending_proposal, keyword=inkind, block=nbpar, heading=none,resetnumbers=true]
+\end{refcontext} 
+
+\subsubsection{Unfunded Proposals}
+\subsubsubsection{Research Funding}
+\begin{refcontext}[labelprefix=PU]
+  \printbibliography[filter=unfunded_proposal, notkeyword=inkind, block=nbpar, heading=none,resetnumbers=true]
+\end{refcontext} 
+
+\subsubsubsection{In-Kind Research Support (HPC Allocations, and Personnel Time)}
+\begin{refcontext}[labelprefix=PUIK]
+  \printbibliography[filter=unfunded_proposal, keyword=inkind, block=nbpar, heading=none,resetnumbers=true]
+\end{refcontext} 
+
+\subsection{Briefly Describe Your Current Research Interests}
+\input{sections/Research_Statement}
+
+\newpage
+
+\section{Editorship of Journals, Review of Manuscripts, Books, Research Proposals, Curating, and Jurying of Exhibitions}
+
+%\subsection{Editorial Boards}
+%\input{sections/EditorshipJ}
+
+
+\subsection{Research Proposal Reviews}
+\input{sections/ResearchReview}
+
+\subsection{Journal and Conference Article Reviews}
+\input{sections/Review}
+
+
+\section{Service}
+
+\subsection{Service to University}
+\input{sections/ServiceRPI}
+
+
+\subsection{Professional Societies}
+
+%\subsection*{Memberships}
+\input{sections/ServiceMember}
+
+%\subsection*{Service to Professional Societies}
+%\input{sections/EditorishipConf}
+
+
+%%\subsection*{Community and Public Service}
+%\input{sections/community_public}
+
+
+\section{Professional and Public Lectures}
+\contributionstable
+
+\subsection{Invited Lectures}
+\begin{refcontext}[labelprefix=IL]
+  \printbibliography[filter=invited_lectures, heading=none,resetnumbers=true]
+\end{refcontext} 
+
+\subsection{Contributed Lectures}
+\begin{refcontext}[labelprefix=CL]
+  \printbibliography[filter=contributed_lectures, heading=none,resetnumbers=true]
+\end{refcontext} 
+
+\section{Honors and Awards}
+\subsection{Personal Awards}
+\begin{itemize}
+  \item National Science Foundation Graduate Research Fellowship - 2016
+\end{itemize}
+
+\subsection{Mentored Student Awards}
+\begin{itemize}
+  \item \textbf{Zachary Knowlan} (Ph.D. student) - 2024 RPI Founders Award of Excellence
+  \item \textbf{Fuad Hasan} (Ph.D. student) - 2025 Argonne Training Program on Extreme-Scale Computing (ATPESC)
+\end{itemize}
+
+\subsection{Patent Applications and Disclosures}
+\begin{refcontext}[labelprefix=PA]{patents}
+\printbibliography[type=patent, heading=none,resetnumbers=true]
+\end{refcontext}
+
+
+%\subsection{Awards}
+%\input{sections/Awards}
+
+\section{Sabbatical Leaves and Foreign Professional Travels}
+%\input{sections/sabbatical}
+%\subsection{Sabbatical Leaves}
+
+
+
+%\subsection{Foreign Professional Travels}
+%\input{sections/Travels}
+
+\section{Other Activities}
+
+%\subsection{Center Membership}
+%\input{sections/Centers}
+
+%\subsection{External Publicity}
+%\input{sections/publicity}
+% signature line
+\section{In addition to the above information, include if pertinent, concrete evidence of teaching ability and any unusual contributions to university affairs, such as curriculum advising or development, continuing education participation, etc.}
+
+\vspace{2em}
+\makebox[0.75\textwidth]{Signature:\enspace\hrulefill}\makebox[0.25\textwidth]{Date:\enspace\hrulefill}
+
+\clearpage
+
+\end{document}

@@ -1,0 +1,5 @@
+*.pdf
+build/
+*.synctex.gz
+.vscode/
+.DS_Store

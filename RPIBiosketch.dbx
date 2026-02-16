@@ -1,0 +1,68 @@
+\ProvidesFile{RPIBiosketch.dbx}[custom datamodel]
+
+% Pull in ACM's datamodel extension if present
+\InputIfFileExists{acmdatamodel.dbx}
+  {}
+  {\PackageWarning{RPIBiosketch}{acmdatamodel.dbx not found; continuing without it}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Custom Datamodel components          %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\ResetDatamodelEntrytypes
+%\ResetDatamodelEntryfields
+%\ResetDatamodelEntryfields
+%\ResetDatamodelConstraints
+
+% setup proposal bibliography
+%@proposal{bla2,
+%    title = {DMREF: Adaptive Control of Microstructure Evolution from the Microscale to the
+%Macroscale},
+%    pi = {Robert Hull},
+%    copi = {A.M. Maniatty and D.J. Lewis and J.T. Wen},
+%    period = {2017-09-01/2022-08-31},
+%    percent = {25},
+%    amount = {1524300},
+%    organization = {NSF},
+%    status = {funded}
+%}
+\DeclareDatamodelEntrytypes{proposal,fundedproposal}
+\DeclareDatamodelFields[type=field,datatype=integer]{
+    percent,
+    amount,
+    myamount,
+}
+\DeclareDatamodelFields[type=field,datatype=literal,label=true]{
+    status,
+    inkind
+}
+\DeclareDatamodelFields[type=field,datatype=literal]{
+    organization,
+}
+\DeclareDatamodelFields[type=list,datatype=name]{
+    pi,
+    copi,
+}
+\DeclareDatamodelEntryfields[proposal] {
+    title,
+    pi,
+    copi,
+    date,
+    amount,
+    organization,
+    status
+}
+
+% datmap fundedproposal --> proposal{status=funded}
+% datmap pendingproposal --> proposal{status=pending}
+% datmap unfundedproposal --> proposal{status=unfunded}
+\DeclareDatamodelConstraints[proposal] {
+    \constraint[type=mandatory]{
+        \constraintfield{title}
+        \constraintfield{pi}
+        \constraintfield{date}
+        \constraintfield{organization}
+    }
+}
+
+
