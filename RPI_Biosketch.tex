@@ -20,15 +20,40 @@
 }
 
 \usepackage{etoolbox}
+
+
 \usepackage[
   backend=biber,
   style=RPIBiosketch,
   defernumbers=true,
-  sorting=ydnt,
+  sorting=ymdnt,
   eprint=false,
   datamodel=RPIBiosketch,
   maxbibnames=99
 ]{biblatex}
+
+% similar to ydnt but include rest of date
+\DeclareSortingTemplate{ymdnt}{%
+  \sort{\field{presort}}%
+  \sort[final]{\field{sortkey}}%
+  \sort[direction=descending]{%
+    %\field[strside=left,strwidth=4]{sortyear}%
+    \field[strside=left,strwidth=4]{year}%
+    \literal{0000}%
+  }%
+  \sort[direction=descending]{%
+    %\field[strside=left,strwidth=2]{sortmonth}%
+    \field[strside=left,strwidth=2]{month}%
+    \literal{00}%
+  }%
+  \sort[direction=descending]{%
+    %\field[strside=left,strwidth=2]{sortday}%
+    \field[strside=left,strwidth=2]{day}%
+    \literal{00}%
+  }%
+  \sort{\field{sortname}}%
+  \sort{\field{sorttitle}}%
+}
 
 \providecommand{\bibliofont}{}
 \addbibresource{sections/publications.bib}
