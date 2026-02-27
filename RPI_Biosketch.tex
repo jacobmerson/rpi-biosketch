@@ -301,11 +301,7 @@ $\ddag$&masters student in my lab \\
 \end{center}
 }
 
-% Used to watermark non-final drafts 
-\usepackage[printwatermark]{xwatermark}
-\usepackage[dvipsnames]{xcolor}
-\usepackage{graphicx}
-\newwatermark[allpages,color=red!10,angle=45,scale=3,xpos=-20,ypos=0]{DRAFT}
+\usepackage{framed}
 
 %\setlength{\headheight}{22pt}
 \lhead{\LARGE \textbf{Jacob S. Merson}}
@@ -326,7 +322,7 @@ RENSSELAER POLYTECHNIC INSTITUTE}
 \vspace{-.25 in}
 \begin{tabular}{ll}
 \textbf{Name:} & \hspace{.7 in} Jacob S. Merson \\
-\textbf{Department:} & \hspace{.7 in}   MANE
+\textbf{Department:} & \hspace{.7 in}   Mechanical, Aerospace, and Nuclear Engineering
   \\
 \textbf{School:} &\hspace{.7 in}  Engineering\\
 \textbf{Current Rank:} &\hspace{.7 in} Assistant Professor
@@ -338,12 +334,10 @@ RENSSELAER POLYTECHNIC INSTITUTE}
 \subsection{Educational Preparation}
 \input{sections/education}
 
-%\newpage
 
 \section{Professional Experience}
 \input{sections/experience}
 
-\newpage
 
 \section{Teaching}
 \input{sections/Teaching_Summary}
@@ -375,7 +369,6 @@ RENSSELAER POLYTECHNIC INSTITUTE}
 \input{sections/CourseDevelopment}
 
 
-\newpage
 \section{Publications}
 \input{sections/Papers_Summary}
 
@@ -390,6 +383,10 @@ RENSSELAER POLYTECHNIC INSTITUTE}
 \end{refcontext}
 
 \subsubsection{Published}
+  \begin{framed}
+  \centering
+  Journal articles \cite{picuUltracompositesDesigningStochastic2016}--\cite{mersonProbingSoftFibrous2022} were published prior to my tenure track appointment at RPI.
+  \end{framed}
   \begin{refcontext}[labelprefix=J]{RJAP}
     \printbibliography[filter=published_journals, heading=none,resetnumbers=true]
   \end{refcontext}
@@ -414,13 +411,14 @@ RENSSELAER POLYTECHNIC INSTITUTE}
 \subsubsection{Small Scale Musical or Video Works}
 \subsubsection{Group Exhibitions and Performances, Ensemble Recitals}
 
-\newpage 
 \section{Research Grants and Contract}
 \printfundedsummary % print the summary of funded proposals at the top of this section
 
 %% make a table of entries
 %% need Title, PI, Co-PI, Period, Funding amount, share of funding, souce of funding
 \subsection{Proposals Approved and Funded}
+\textbf{Note:} All listed funding has been carried out during my tenure track appointment RPI.
+
 \subsubsection{Current}
 \subsubsubsection{Research Funding}
 
@@ -472,7 +470,6 @@ RENSSELAER POLYTECHNIC INSTITUTE}
 \subsection{Briefly Describe Your Current Research Interests}
 \input{sections/Research_Statement}
 
-\newpage
 
 \section{Editorship of Journals, Review of Manuscripts, Books, Research Proposals, Curating, and Jurying of Exhibitions}
 
@@ -517,7 +514,7 @@ RENSSELAER POLYTECHNIC INSTITUTE}
 \section{Honors and Awards}
 \subsection{Personal Awards}
 \begin{itemize}
-  \item National Science Foundation Graduate Research Fellowship - 2016
+  \item National Science Foundation Graduate Research Fellowship \hfill 2016--2021
 \end{itemize}
 
 \subsection{Mentored Student Awards}
