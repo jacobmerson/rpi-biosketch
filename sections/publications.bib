@@ -28,6 +28,9 @@
   numpages = {20},
   keywords = {journal,published},
   author+an={2=corresponding},
+  abstract={
+  We develop a new neural network based material model for discrete fibrous materials that strictly enforces constitutive constraints such as polyconvexity, frame-indifference, and the symmetry of the stress and material stiffness. Additionally, we show that the accuracy of the stress and material stiffness predictions is significantly improved for this neural network by using a Sobolev minimization strategy that includes derivative terms. We obtain a normalized mean square error of 0.15\% for the strain energy density, 0.815\% averaged across the components of the stress, and 5.4\% averaged across the components of the stiffness tensor. This machine-learned constitutive model was deployed in a finite element simulation of a facet capsular ligament. The displacement fields and stress–strain curves were compared to a multiscale simulation that required running on a GPU-based supercomputer. The new approach maintained upward of 85\% accuracy in stress up to 70\% strain while reducing the computation cost by orders of magnitude.
+  }
 }
 
 @article{shephardUMFusion2024,
@@ -39,7 +42,10 @@
   pages={3319–-3336},
   doi = {10.1007/s00366-024-01976-2},
   keywords = {journal,published},
-  author+an={1=corresponding}
+  author+an={1=corresponding},
+  abstract={
+  As fusion simulation codes increasingly account for the full geometric complexity of magnetically confined fusion systems, a need arose to provide tailored unstructured mesh technologies to address the specific needs of fusion plasma simulation codes and their coupling to other physics simulation codes. This paper presents a high level overview of a set of unstructured mesh developments that include; methods to effectively employ manufacturing CAD models in the construction of quality analysis model geometries, specialized mesh generation and adaptation tools; an infrastructure to support parallel particlein-cell calculation on unstructured meshes; and an infrastructure for coupling of massively parallel mesh-based fusion codes.
+  }
 }
 
 @article{deyEvaluationParallelCoupling2024,
@@ -53,7 +59,10 @@
   issn = {1751-6161},
   doi = {10.1016/j.jmbbm.2024.106583},
   keywords = {journal,published},
-  author+an={3=corresponding}
+  author+an={3=corresponding},
+  abstract={
+  In this article we discuss the effective properties of composites containing a crosslinked athermal fiber network embedded in a continuum elastic matrix, which are representative for a broad range of biological materials. The goal is to evaluate the accuracy of the widely used biomechanics parallel coupling model in which the tissue response is defined as the additive superposition of the network and matrix contributions, and the interaction of the two components is neglected. To this end, explicit, fully coupled models are used to evaluate the linear and non-linear response of the composite. It is observed that in the small strain, linear regime the parallel model leads to errors when the ratio of the individual stiffnesses of the two components is in the range 0.1–10, and the error increases as the matrix approaches the incompressible limit. The data presented can be used to correct the parallel model to improve the accuracy of the overall stiffness prediction. In the non-linear large deformation regime linear superposition does not apply. The data shows that the matrix reduces the stiffening rate of the network, and the response is softer than that predicted by the parallel model. The correction proposed for the linear regime mitigates to a large extent the error in the non-linear regime as well, provided the matrix Poisson ratio is not close to 0.5. The special case in which the matrix is rendered auxetic is also evaluated and it is seen that the auxeticity of the matrix may compensate the stiffening introduced by the network, leading to a composite with linear elastic response over a broad range of strains.
+  }
 }
 
 @article{parvezStiffeningMechanismsStochastic2023,
@@ -69,7 +78,9 @@
   publisher = {American Physical Society},
   doi = {10.1103/PhysRevE.108.044502},
   keywords = {journal,published},
-  author+an = {3=corresponding}
+  author+an = {3=corresponding},
+  abstract = {
+  Stochastic athermal networks composed of fibers that deform axially and in bending strain stiffen much faster than thermal networks of axial elements, such as elastomers. Here we investigate the physical origin of stiffening in athermal network materials. To this end, we use models of stochastic networks subjected to uniaxial deformation and identify the emergence of two subnetworks, the stress path subnetwork (SPSN) and the bending support subnetwork (BSSN), which carry most of the axial and bending energies, respectively. The BSSN controls lateral contraction and modulates the organization of the SPSN during deformation. The SPSN is preferentially oriented in the loading direction, while the BSSN’s preferential orientation is orthogonal to the SPSN. In nonaffine networks stiffening is exponential, while in close-to-affine networks it is quadratic. The difference is due to a much more modest lateral contraction in the approximately affine case and to a stiffer BSSN. Exponential stiffening emerges from the interplay of the axial and bending deformation modes at the scale of individual or small groups of fibers undergoing large deformations and being subjected to the constraint of rigid cross-links, and it is not necessarily a result of complex interactions involving many connected fibers. An apparent third regime of quadratic stiffening may be evidenced in nonaffinely deforming networks provided the nominal stress is observed. This occurs at large stretches, when the BSSN contribution of stiffening vanishes. However, this regime is not present if the Cauchy stress is used, in which case stiffening is exponential throughout the entire deformation. These results shed light on the physical nature of stiffening in a broad class of materials including connective tissue, the extracellular matrix, nonwovens, felt, and other athermal network materials.}
 }
 
 @article{mersonProbingSoftFibrous2022,
@@ -84,7 +95,10 @@
   volume = {163},
   langid = {english},
   keywords = {journal,published},
-  author+an={3=corresponding}
+  author+an={3=corresponding},
+  abstract={Indentation is often used to measure the stiffness of soft materials whose main structural component is a network of filaments, such as the cellular cytoskeleton, connective tissue, gels, and the extracellular matrix. For elastic materials, the typical procedure requires fitting the experimental force-displacement curve with the Hertz model, which predicts that f=kδ1.5 and k is proportional to the reduced modulus of the indented material, E/(1−ν2). Here we show using explicit models of fiber networks that the Hertz model applies to indentation in network materials provided the indenter radius is larger than approximately 12lc, where lc is the mean segment length of the network. Using smaller indenters leads to a relation between force and indentation displacement of the form f=kδq, where q is observed to increase with decreasing indenter radius. Using the Hertz model to interpret results of indentations in network materials using small indenters leads to an inferred modulus smaller than the real modulus of the material. The origin of this departure from the classical Hertz model is investigated. A compacted, stiff network region develops under the indenter, effectively increasing the indenter size and modifying its shape. This modification is marginal when large indenters are used. However, when the indenter radius is small, the effect of the compacted layer is pronounced as it changes the indenter profile from spherical towards conical. This entails an increase of exponent q above the value of 1.5 corresponding to spherical indenters.
+Statement of significance
+The article presents a study of indentation in network biomaterials and demonstrates a size effect which precludes the use of the Hertz model to infer the elastic constants of the material. The size effect occurs once the indenter radius is smaller than approximately 12 times the mean segment length of the network. This result provides guidelines for the selection of indentation conditions that guarantee the applicability of the Hertz model. At the same time, the finding may be used to infer the mean segment length of the network based on indentations with indenters of various sizes. Hence, the method can be used to evaluate this structural parameter which is not easily accessible in experiments.}
 }
 
 @article{mersonRandomFiberNetwork2022,
@@ -99,7 +113,8 @@
   issn = {0021-8936},
   doi = {10.1115/1.4053329},
   keywords = {journal,published},
-  author+an = {2=corresponding}
+  author+an = {2=corresponding},
+  abstract = {This article presents the displacement field produced by a point force acting on an athermal random fiber network (the Green function for the network). The problem is defined within the limits of linear elasticity, and the field is obtained numerically for nonaffine networks characterized by various parameter sets. The classical Green function solution applies at distances from the point force larger than a threshold which is independent of the network parameters in the range studied. At smaller distances, the nonlocal nature of fiber interactions modifies the solution.}
 }
 
 @article{mersonSizeEffectsRandom2020,
@@ -113,7 +128,8 @@
   doi = {10.1016/j.ijsolstr.2020.09.033},
   langid = {english},
   keywords = {journal,published},
-  author+an = {2=corresponding}
+  author+an = {2=corresponding},
+  abstract = {Materials with a stochastic ﬁber network as the main structural constituent are broadly encountered in engineering and in biology. These materials are characterized by multiscale heterogeneity and hence their properties evaluated numerically or experimentally are generally dependent on the size of the sample considered. In this work we evaluate the size effect on the linear and non-linear mechanical response of three-dimensional stochastic ﬁber networks and determine its dependence on material parameters and on the degree of afﬁnity of network deformation. The size effect is more pronounced in non-afﬁne networks than in afﬁne networks and decreases slowly when the model size increases. In order to eliminate this effect, models lager than can be effectively solved with current computers have to be considered. To address this issue, we propose a method that allows using relatively small models, while accurately predicting the small and large strain behaviors of the network. The method is based on the generalized boundary conditions introduced in (Glüge 2013, Computational Materials Science 79, 408–416), which are being adapted here to the requirements imposed by ﬁbrous materials.}
 }
 
 @article{picuUltracompositesDesigningStochastic2016,
@@ -124,7 +140,8 @@
   volume = {61},
   number = {1},
   keywords = {journal,published},
-  author+an = {1=corresponding}
+  author+an = {1=corresponding},
+  abstract={Regular composite materials are made from a small number of constituent phases, usually two, which are arranged spatially such to maximize the stiffness and strength of the material. In this article, we review results related to defining a new class of stochastic composite materials with large microstructural variability both in terms of the composition and spatial distribution of constituents. Further, new data on Green functions in stochastic continua is presented.}
 }
 
 @article{mersonNewOpensourceFramework2024,
@@ -134,7 +151,8 @@
   pages = {1-19},
   journaltitle = {Engineering with Computers},
   author+an = {1=corresponding;},
-  keywords = {journal,published}
+  keywords = {journal,published},
+  abstract = {This article presents MuMFiM, an open source application for multiscale modeling of fibrous materials on massively parallel computers. MuMFiM uses two scales to represent fibrous materials such as biological network materials (extracellular matrix, connective tissue, etc.). It is designed to make use of multiple levels of parallelism, including distributed parallelism of the macro and microscales as well as GPU accelerated data-parallelism of the microscale. Scaling results of the GPU accelerated microscale show that solving microscale problems concurrently on the GPU can lead to a 1000x speedup over the solution of a single RVE on the GPU. In addition, we show nearly optimal strong and weak scaling results of MuMFiM on up to 128 nodes of AiMOS (Rensselaer Polytechnic Institute) which is composed of IBM AC922 nodes with 6 Volta V100 GPU and 2 20 core Power 9 CPUs each. We also show how MuMFiM can be used to solve problems of interest to the broader engineering community, in particular providing an example of the facet capsule ligament (FCL) of the human spine undergoing uniaxial extension.}
 }
 @article{mersonModeltraitsModelAttribute2021,
   title = {Model-Traits: Model Attribute Definitions for Scientific Simulations in {C++}},
@@ -148,7 +166,8 @@
   eid = {3389},
   langid = {english}, 
   keywords = {journal,published},
-  author+an = {1=corresponding}
+  author+an = {1=corresponding},
+  abstract={model-traits is a C++ library for setting up scientific models and computational analysis. It provides a minimal API for applying boundary conditions (or other attributes) to the geometry of a model. model-traits can either be used directly as a library, or can be used to generate input files for an existing analysis code. The library design is optimized to make adding new input and output file formats easy and maintainable without patching the core library.}
 }
 @article{primePhysicalRegimeSensitivity2023,
   title = {Physical Regime Sensitivity},
@@ -160,7 +179,8 @@
   volume={9},
   langid = {english},
   keywords = {journal,published},
-  author+an = {1=corresponding;}
+  author+an = {1=corresponding;},
+  abstract={This work presents a novel sensitivity approach that quantifies sensitivity to regimes of a model’s state variables rather than constitutive model parameters. This Physical Regime Sensitivity (PRS) determines which regimes of a model’s independent variables have the biggest influence on an experiment or application. PRS analysis is demonstrated on a strength model used in the simulation of a copper Taylor cylinder. In a series of simulations, the strength model was perturbed sequentially in local regimes of plastic strain, plastic strain rate, temperature and pressure, and then the prediction of cylinder shape was compared to unperturbed calculations. Results show, for example, that the deformed length of the cylinder was most sensitive to strength at a strain rate of 1.0 × 104/sec., but the deformed footprint radius was most sensitive to strength at a strain  rate of about 4.0 × 104/sec. Compared to current histogram approaches, PRS can be used to design or interpret integrated experiments by identifying not just which regimes are accessed somewhere in the experiment but the causality question of which regimes actually affect the measured data. PRS should allow one to focus experimental and modeling efforts where they are most needed and to better interpret experiments.}
 }
 
 @article{adamsPerformancePortableFully2025,
@@ -176,7 +196,8 @@
   doi = {10.1137/24M1640252},
   langid = {english},
   keywords= {journal, published},
-  author+an={1=corresponding}
+  author+an={1=corresponding},
+  abstract={Modern accelerators use hierarchical parallel programming models that enable massive multithreading within a processing element (PE), with multiple PEs per device driven by traditional processes. Batching is a technique for exposing PE-level parallelism in algorithms that have traditionally run on MPI processes or multiple threads within a single process. Opportunities for batching arise in, for example, kinetic discretizations of magnetized plasmas where collisions are advanced in velocity space at each spatial point independently. This paper builds on previous work on a high-performance, fully nonlinear, Landau collision operator by batching the linear solver, as well as batching the spatial point problems and adding new support for multiple grids for multiscale, multispecies problems. An anisotropic relaxation verification test that agrees well with previously published results and analytical models is presented. The performance results from NVIDIA A100 and AMD MI250X nodes are presented with hardware utilization analysis for each architecture. The entire implicit Landau operator time advance is implemented in Kokkos for performance portability, running entirely on the device and is available in the PETSc numerical library.}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -296,7 +317,8 @@
     numpgates={6},
     doi={10.1109/ITherm55376.2025.11235683},
     author+an={1=presenter;9=corresponding},
-    keywords={peerreview,conference,contributed}
+    keywords={peerreview,conference,contributed},
+    abstract={Thermally aware design of 2.5 D and 3 D advanced packaging systems will require fast, accurate, and powerful thermal analysis of chiplets, stacks, and packages. These systems contain multiple materials with non-linear heat transfer properties and geometric feature sizes that span many orders of magnitude. The smallest heterostructures in the front and back ends of the line present significant thermal modeling and analysis challenges in isolation. Replicated millions or billions of times in a chiplet stack, these structures present a near insurmountable hurdle to meeting the speed and accuracy needed of analysis in the design process. Additionally, establishing precise parameter values for the materials in these systems, when size and temperature dependencies create significant deviations from bulk properties, further complicates the problem. To address these issues, we have developed a multiscale methodology that advances the current state of the field by enabling die-scale simulations that capture phenomena arising from the structural details of the BEOL metallization stack. Taking advantage of the large length-scale separation between the BEOL features and the die-level structures, we employ a hierarchical, multiscale, finite-element approach. This hierarchical method uses a standard finite element method (FEM) formulation on a die or package scale, using computational homogenization to obtain effective thermal conductivities in the BEOL. Referring to industry-standard layout and design files, we construct and solve a locally appropriate subscale FEM problem in a representative volume element (RVE) at every quadrature point in the macroscale FEM problem. To accomplish this calculation, in our multiscale workflow, all geometric models of these RVEs are automatically constructed, meshed, and used to compute homogenized, anisotropic, thermal conductivities from the relevant GDSII or OASIS files based on the FEM integration point locations. Here, we make use of a direct, static-condensation based method to extract the full thermal conductivity tensor.}
 }
 
 @inproceedings{ithermExp2025,
@@ -308,7 +330,8 @@
     doi={10.1109/ITherm55376.2025.11235745},
     author={Amogh Wasti and Zongmin Yang and Matthew Galarza and Jonas Kendra and Davis Knight and Max Bloomfield and Timothy Chainer and Roy Yu and Prabudhya Chowdhury and Aakrati Jain and Jacob Merson and Theodorian Borca-Tasciuc},
     author+an={1=presenter;12=corresponding},
-    keywords={peerreview,conference,contributed}
+    keywords={peerreview,conference,contributed},
+    abstract={This work reports the experimental measurements of cross-plane thermal conductivities of individual BEOL films, using 3ω technique with a central heater. Each thermal measurement requires two steps viz., the calibration of temperature coefficient of resistance (TCR) of the metallic thermistors followed by measurements of the AC temperature amplitude of the central heater as a function of the applied AC frequency. The collected thermal signals are then fitted against a 2D heat conduction model to determine the anisotropic thermal conductivities of the thin film. This work presents the effective cross-plane thermal conductivities of different thicknesses of isotropic silicon nitride (SiN) and tetraethyl orthosilicate (TEOS) samples and compares them with that reported in the literature. Moreover, this work presents an analytical sensitivity study to the in-plane thermal transport in both individual BEOL films and sandwiched layers of copper and BEOL dielectrics. In the analytical sensitivity study, the in-plane thermal conductivity of both individual dielectric film and metal layer sandwiched between two dielectric films, is changed by 10\% and the corresponding percentage change in temperature amplitude is captured as a function of applied AC frequency, heater width, and cross-plane thermal conductivity of the dielectric film(s). Temperature amplitude sensitivity is shown to increase with increasing AC frequency, decreasing heater width, and decreasing cross-plane thermal conductivity of the dielectric layer for both single layer of dielectric film and sandwiched layers of metal and dielectric films. However, an understanding of both signal sensitivity and signal strength is required to position the in-plane thermistor optimally.}
 }
 
 @inproceedings{HTSC2025,
@@ -320,7 +343,8 @@
     numpages={10},
     doi={10.1115/HT2025-155734},
     author+an={1=presenter;12=corresponding},
-    keywords={peerreview,conference,contributed}
+    keywords={peerreview,conference,contributed},
+    abstract={Thermal management of semiconductor devices is becoming more challenging with the progressing technology nodes. Implementation of advanced device platforms such as CFET and advanced chip architecture such as 3DVLSI, would result in thermal transport through the thin back-end-of-line (BEOL) layers. An accurate understanding of anisotropic heat transfer through multiple stacked layers of dielectrics and metal interconnects is therefore necessary, and is garnering some research interests. The thermal analysis can be conducted either through a heterogenized approach, using the individual properties of all the BEOL layers, or a homogenized approach, by assuming a single medium with effective thermal and geometric properties. This work investigates the temperature response of sandwiched BEOL layers with and without the effective medium approximation, using both a time dependent 2D analytical model and a steady state 2D multiscale FEM scheme. It is observed through the analytical study that the effective medium approximation is accurate at low frequency and at larger dimension of the heat source. Moreover, at larger heater widths and larger laser it is independent of the anisotropic thermal conductivities of the layer(s) at larger heater widths. Results from the multiscale FEM model are consistent showing an increase in homogenization error as heater size decreases.}
 }
 
 @misc{knowlanCorning2024,
@@ -399,7 +423,7 @@
 %%  Conference Poster %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
-@misc{kendraInvestigatingFLuidImmersionEPSSHTM2026,
+@misc{kendraInvestigatingFluidImmersionEPSSHTM2026,
   title={Investigating Fluid Immersion for Scanning Thermal Microscopy Thermal Conductivity Sensitivity Improvement},
   date={2025-09-03},
   location={36th Electronics Packaging Symposium},
@@ -545,7 +569,8 @@ Element Implementation of Micromorphic Linear Elasticity},
   doi={10.1109/HiPC58850.2023.00047},
   keywords={peerreview,conference},
   numpages={11},
-  author+an = {1=presenter;7=corresponding}
+  author+an = {1=presenter;7=corresponding},
+  abstract={The growing scale of high-performance computing systems increasingly enables scientists to develop more complex applications as in situ workflows composed of coupled simulation and analysis codes. It is therefore important that workflow programming systems and runtime middleware support the composition and execution of these complex applications intuitively and efficiently. The scientific computing community has put significant effort into purpose-built coupled simulation codes that have been optimized for specialized use cases. However, the development effort involving the coupling of established codes has been largely ad hoc. The Benesh programming system was recently proposed to support the development of coupled simulation workflows from existing code bases. Benesh allows a shared data model to be defined across established codes, so that they can be interfaced in a flexible, coupled workflow. In this paper, we develop Benesh into a workflow development framework. Using Benesh, we develop workflow data model and data exchange definitions for coupled, in situ workflows. We evaluate the cost of development using Benesh in terms of development time and overhead, showing that Benesh offers development advantages without undue impact upon workflow performance.}
 }
 
 @article{mersonUsingHierarchicalParallelism2023,
@@ -558,7 +583,8 @@ Element Implementation of Micromorphic Linear Elasticity},
   numpages={5},
   doi = {10.48550/arXiv.2305.07030},
   keywords = {peerreview,conference},
-  author+an = {1=presenter;2=corresponding}
+  author+an = {1=presenter;2=corresponding},
+  abstract={This paper presents efforts to improve the hierarchical parallelism of a two scale simulation code. Two methods to improve the GPU parallel performance were developed and compared. The first used the NVIDIA Multi-Process Service and the second moved the entire sub-problem loop into a single kernel using Kokkos hierarchical parallelism and a PackedView data structure. Both approaches improved parallel performance with the second method providing the greatest improvements.}
 }
 @incollection{mersonInSituDICStrain2016,
   title = {In-Situ DIC and Strain Gauges to Isolate the Deficiencies in a Model for Indentation Including Anisotropic Plasticity},
@@ -571,7 +597,8 @@ Element Implementation of Micromorphic Linear Elasticity},
   location = {Cham},
   doi = {10.1007/978-3-319-21765-9_24},
   keywords = {conference,contributed,peerreview},
-  author+an={2=presenter}
+  author+an={2=presenter},
+  abstract={A 60-mm diameter disk of 2024 aluminum was indented by opposing steel indenters over a central 10 mm region. Residual stress measurements made using neutron diffraction and the contour method matched each other, but not a finite element (FE) model with a calibrated model for plastic anisotropy of the aluminum. Since residual stresses are only the endpoint of the process, in situ data was needed to determine which portion of the load/unload process was causing model deficiencies. The indentation process was repeated on a new specimen with three-dimensional Digital Image Correlation (3D-DIC) to map full-field strain information and with resistance strain gauges to obtain high fidelity strain information at discrete locations. The DIC data was too noisy to extract strains, so displacements were analyzed after rigid body motion was removed. The deformation field revealed geometric imperfections of the indenters that were within tolerance, but had significant effect on the stress state. An updated FE model including geometric imperfections in the indenters gave better agreement with the DIC data. It did not however allow the material model to become the dominant effect and thus model calibration was unsuccessful.}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -747,6 +774,7 @@ author+an={1=presenter}
   doi = {10.48550/arXiv.2504.19048},
   keywords = {journal,submitted},
   author+an={1=phd;8=corresponding},
+  abstract={Unstructured mesh tallies are a bottleneck in Monte Carlo neutral particle transport simulations of fusion reactors. This paper introduces the PUMI-Tally library that takes advantage of mesh adjacency information to accelerate these tallies on CPUs and GPUs. For a fixed source simulation using track-length tallies, we achieved a speed-up of 19.7X on an NVIDIA A100, and 9.2X using OpenMP on 128 threads of two AMD EPYC 7763 CPUs on NERSC Perlmutter. On the Empire AI alpha system, we achieved a speed-up of 20X using an NVIDIA H100 and 96 threads of an Intel Xenon 8568Y+. Our method showed better scaling with number of particles and number of elements. Additionally, we observed a 199X reduction in the number of allocations during initialization and the first three iterations, with a similar overall memory consumption. And, our hybrid CPU/GPU method demonstrated a 6.69X improvement in the energy consumption over the current approach.}
 }
 
 @article{mersonPCMS2025,
@@ -761,7 +789,8 @@ author+an={1=presenter}
   doi = {10.48550/arXiv.2510.18838},
   author+an={1=corresponding;4=phd;5=phd;7=bs;8=postdoc},
   keywords = {journal,submitted},
-  note = {Under Review}
+  note = {Under Review},
+  abstract={This paper presents the Parallel Coupler for Multimodel Simulations (PCMS), a new GPU accelerated generalized coupling framework for coupling simulation codes on leadership class supercomputers. PCMS includes distributed control and field mapping methods for up to five dimensions. For field mapping PCMS can utilize discretization and field information to accommodate physics constraints. PCMS is demonstrated with a coupling of the gyrokinetic microturbulence code XGC with a Monte Carlo neutral transport code DEGAS2 and with a 5D distribution function coupling of an energetic particle transport code (GNET) to a gyrokinetic microturbulence code (GTC). A scaling study is also presented to stress the rendezvous and PCMS APIs.  It demonstrates an efficiency of 85\% on up to 2,080 GPUs of Frontier; 16-2048 processes for the application being scaled and a fixed 16 processes each for the coupler and the second application.}
 }
 
 @misc{GreenAPS2025,
@@ -848,7 +877,12 @@ Thermal Analysis of {3DHI} Chip Stack},
   numpages={6},
   author+an={4=corresponding;1=postdoc},
   keywords={conference,peerreview,submitted},
-  note={Under Review}
+  note={Under Review},
+  abstract={Modern package designs make use of technologies such as backside power delivery (BSPD) and 3D stacked chiplets that require accounting for the heterogeneity in back end of the line (BEOL) structures in hot-spot prediction. Multiscale homogenization strategies have been demonstrated to be effective for steady-state simulations, however accurate 3D transient simulations that include BEOL structures remain an open challenge.
+
+In this work, we demonstrate a transient thermal workflow that accounts for the 3D heterogeneous structures in the BEOL for problems with strong- and weak- temporal scale separation under the assumption of temperature independent constitutive properties. Our workflow, based on Bloomfield et. al. 2025, automatically extracts, meshes, and homogenizes thermal properties from GDSII and OASIS files to construct thermal property maps.
+
+Property maps (heat capacity and conductivity) have been generated for a 1 mm$\times$1 mm SoC-style model die that was constructed with LibreLane for 100$\times$100 grids with 5 $\mu m \times$5 $\mu m$ representative volume elements (RVEs), and 50$\times$50 grids with 10 $\mu m\times$ 10 $\mu m$ RVEs. The expressions for a transient effective conductivity are provided and a demonstration of the impact of the transient effects are provided for a single RVE. Finally, transient conductivity maps have been provided for a time integration timestep of \(\Delta t=0.001\).}
 }
 
 % TODO Update with contributed when presented
@@ -860,7 +894,8 @@ Thermal Analysis of {3DHI} Chip Stack},
     author={Jacob Merson and Hunter Belanger and Parth Singh},
     author+an={2=corresponding},
     keywords={peerreview,conference,submitted},
-    note={Under Review}
+    note={Under Review},
+    abstract={Functional expansion tallies (FETs) have become a popular method to generate tallies from Monte Carlo simulations which are spatially continuous, and can therefore facilitate multi-physics coupling with finite-element method (FEM) based solvers in other physics domains. There are, however, several drawbacks with traditional FETs, such as requiring a set of orthogonal basis functions defined on the geometric region of the tally. Another constraint is that at the intersection between two FET regions, the functional values will not, in general, be continuous. In this work, we propose a new type of FET which we call the Lagrange FET, that can be scored on a general unstructured mesh. In the Lagrange FET, continuity is guaranteed between elements of the mesh, and orthogonal basis functions are not required, permitting the use of standard FEM interpolation techniques. A simplified version of the Lagrange FET method which supports regular Cartesian meshes has been implemented in the Abeille Monte Carlo code, and has been demonstrated on a 1D slab reactor problem in addition to the C5G7 benchmark.}
 }
 
 @article{BloomfieldTCAD2026,
@@ -880,7 +915,8 @@ Thermal Analysis of {3DHI} Chip Stack},
   author={Abhiyan Paudel and Cameron W. Smith and Jacob S. Merson},
   numpages={25},
   author+an={1=phd; 3=corresponding},
-  keywords={journal,peerreview,submitted}
+  keywords={journal,peerreview,submitted},
+  abstract={This paper introduces a new method for performing field transfer operations in black-box coupling, when source discretization information is not available. This approach uses a stochastic approximation of the Galerkin projection which leads to a method that asymptotically provides conservation. Error in the accuracy and conservation has been compared to the mesh intersection method and radial basis functions on a simple domain, as well as on meshes of the LTX fusion reactor. For all cases tested, our new method provides higher accuracy and less conservation error than radial basis functions and can be used for black-box coupling, unlike the mesh-intersection method. Additionally, we demonstrate the implementation and performance of our method on an NVIDIA A100 GPU, showing that the cost is competitive with the mesh intersection method.}
 }
 
 @article{Hasan2026Degas2,
