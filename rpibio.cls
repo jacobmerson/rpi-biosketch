@@ -110,8 +110,26 @@
 \addbibresource{sections/publications.bib}
 \addbibresource{sections/grants.bib}
 
-%% We used this and some help from gemini to get the reverse numbering
-%% https://tex.stackexchange.com/questions/21401/biblatex-reverse-numbering-i-e-count-down
+%% ============================================================
+%% REVERSE NUMBERING SYSTEM
+%% ============================================================
+%% Goal: bibliography entries are numbered from N down to 1
+%% (most recent = highest number), instead of the default 1..N.
+%%
+%% How it works (two-pass round-trip via the .aux file):
+%%   Pass 1 (first lualatex run):
+%%     - Each bibliography list gets a unique ID (biblistid counter).
+%%     - As items are printed, their raw position and list ID are written
+%%       to the .aux file using \write\@auxout.
+%%     - The total count for each list is also written to the .aux file.
+%%   Pass 2 (subsequent lualatex run):
+%%     - The .aux data is available, so the reversed label can be computed:
+%%       reversed_label = total_count + 1 - raw_position
+%%     - Inline \cite commands use the saved prefix/position from the
+%%       first bibliography that printed the entry.
+%%
+%% Reference: https://tex.stackexchange.com/questions/21401/biblatex-reverse-numbering-i-e-count-down
+%% ============================================================
 %\makeatletter
 \makeatletter
 
@@ -207,6 +225,24 @@
 %%-- End of Reverse Numbering --%%
 % TODO consider refactoring to use \defbibcheck instead of \defbibfilter since that can be used
 % for both the printing and counters
+
+%% ============================================================
+%% PUBLICATION AND PROPOSAL COUNTERS
+%% ============================================================
+%% These counters accumulate totals at data-input time (before any
+%% bibliography is printed) so the summary tables are available at
+%% the top of the Publications and Grants sections.
+%%
+%% Publication counters (peerreviewedjournalcount, peerreviewedconferencecount):
+%%   Incremented via \AtDataInput for entries matching keyword combinations.
+%%   \bbx@markpublication guards against double-counting the same entry.
+%%
+%% Proposal counters (funded/pending proposalcount, totalamount, myamount):
+%%   Incremented via \AtDataInput[proposal] for @proposal entries.
+%%   \bbx@markproposal guards against double-counting.
+%%   In-kind proposals (keyword=inkind) are counted separately and their
+%%   monetary amounts are excluded from the totals.
+%% ============================================================
 \newcounter{bookcount}
 \newcounter{bookchaptercount}
 \newcounter{peerreviewedjournalcount}
@@ -334,6 +370,55 @@
   keyword=pending
 }
 
+%% PhD student milestone timeline table
+%% Usage: \phdtimeline{Start}{DQE}{Candidacy}{Defense}
+\newcommand{\phdtimeline}[4]{%
+  \begin{longtable}{|p{.17\textwidth} p{.17\textwidth} p{.17\textwidth} p{.3\textwidth} |}
+  \hline
+  Start & DQE & Candidacy & Defense\\
+  \hline\hline
+  #1 & #2 & #3 & #4 \\
+  \hline
+  \end{longtable}\vspace{-.2in}%
+}
+
+%% Date range helpers for consistent formatting
+%% Usage: \daterange{Start}{End}  e.g. \daterange{2015}{2021}
+%% Usage: \dateto{Start}          e.g. \dateto{Jul.\ 2023}
+\newcommand{\daterange}[2]{#1\,--\,#2}
+\newcommand{\dateto}[1]{#1\,--\,present}
+
+%% Generic student entry: name, degree/major, pre-formatted dates, project title
+%% Use \dateto{start} or \daterange{start}{end} for the dates argument.
+\newcommand{\studentitem}[4]{%
+  \item \textbf{#1} (#2) \hfill #3\\
+  Project: \emph{#4}%
+}
+\newcommand{\bsstudent}[4]{\studentitem{#1}{#2}{#3}{#4}}
+\newcommand{\msstudent}[4]{\studentitem{#1}{#2}{#3}{#4}}
+
+%% Full PhD student entry: name, major (empty=omit), project, start, DQE, candidacy, defense
+\newcommand{\phdstudent}[7]{%
+  \item \textbf{#1}\ifblank{#2}{}{ (#2)}\\
+  Project: \emph{#3}\vspace{-.1 in}
+  \phdtimeline{#4}{#5}{#6}{#7}%
+}
+
+%% Postdoc entry: name, start date, PhD institution, PhD completion date
+\newcommand{\postdocentry}[4]{%
+  \item \textbf{#1} \hfill \dateto{#2}\\
+  Ph.D.\ from #3 \hfill #4%
+}
+
+%% Committee member: name, dept abbr, advisor, milestone, date
+\newcommand{\committeeentry}[5]{%
+  \item \textbf{#1} (#2) -- Advisor: #3\\
+  #4 \hfill #5%
+}
+
+%% Section status divider used in Students_MS.tex (and any future status-split lists)
+\newcommand{\statusheader}[1]{\vspace{.15in}\noindent\underline{\large\textbf{#1}}}
+
 %% command for table of contributions
 \newcommand{\contributionstable}{
 \begin{center}
@@ -354,11 +439,17 @@ $\ddag$&masters student in my lab \\
 
 \RequirePackage{framed}
 
+% Metadata defaults — override all of these in metadata.tex
 \newcommand{\biosketchname}{Jacob S. Merson}
+\newcommand{\authordept}{}
+\newcommand{\authorschool}{}
+\newcommand{\authorrank}{}
+\newcommand{\authorinstitution}{Rensselaer Polytechnic Institute}
+
 \newcommand{\makebiosketchtitle}{%
 \begin{center}
 {\large BIOGRAPHICAL SKETCH AND PROFESSIONAL ACTIVITIES\\
-RENSSELAER POLYTECHNIC INSTITUTE}
+\MakeUppercase{\authorinstitution}}
 \end{center}
 \vspace{.05 in}
 }
