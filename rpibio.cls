@@ -9,6 +9,8 @@
 \RequirePackage{titlesec}
 \RequirePackage{fancyhdr}
 \RequirePackage{longtable}
+\RequirePackage{tabularx}
+\RequirePackage{needspace}
 \RequirePackage[dvipsnames]{xcolor}
 \RequirePackage{hyperref}
 \hypersetup{
@@ -52,7 +54,7 @@
 \@namedef{Hy@toclevel@subsubsubsection}{4}% instead of \Hy@newcommand...
 \makeatother
 
-\RequirePackage[margin=3cm]{geometry}
+\RequirePackage[margin=3cm,headheight=22pt]{geometry}
 
 % Setting the fonts
 \RequirePackage{fontspec}
@@ -148,6 +150,7 @@
 %    - Reset the local item counter
 %    - Set the in-bibliography flag
 \AtBeginBibliography{%
+  \setlength{\emergencystretch}{2em}%
   \stepcounter{biblistid}%
   \setcounter{localbibcount}{0}%
   \bbx@inbibtrue
@@ -373,13 +376,14 @@
 %% PhD student milestone timeline table
 %% Usage: \phdtimeline{Start}{DQE}{Candidacy}{Defense}
 \newcommand{\phdtimeline}[4]{%
-  \begin{longtable}{|p{.17\textwidth} p{.17\textwidth} p{.17\textwidth} p{.3\textwidth} |}
+  \par\smallskip\noindent
+  \begin{tabularx}{\linewidth}{|XXXX|}
   \hline
   Start & DQE & Candidacy & Defense\\
   \hline\hline
   #1 & #2 & #3 & #4 \\
   \hline
-  \end{longtable}\vspace{-.2in}%
+  \end{tabularx}%
 }
 
 %% Date range helpers for consistent formatting
@@ -391,7 +395,9 @@
 %% Generic student entry: name, degree/major, pre-formatted dates, project title
 %% Use \dateto{start} or \daterange{start}{end} for the dates argument.
 \newcommand{\studentitem}[4]{%
-  \item \textbf{#1} (#2) \hfill #3\\
+  \item \begin{tabularx}{\linewidth}[t]{@{}>{\raggedright\arraybackslash}Xr@{}}
+  \textbf{#1} (#2) & #3
+  \end{tabularx}\\*
   Project: \emph{#4}%
 }
 \newcommand{\bsstudent}[4]{\studentitem{#1}{#2}{#3}{#4}}
@@ -399,9 +405,11 @@
 
 %% Full PhD student entry: name, major (empty=omit), project, start, DQE, candidacy, defense
 \newcommand{\phdstudent}[7]{%
-  \item \textbf{#1}\ifblank{#2}{}{ (#2)}\\
-  Project: \emph{#3}\vspace{-.1 in}
+  \item \begin{minipage}[t]{\linewidth}
+  \textbf{#1}\ifblank{#2}{}{ (#2)}\\
+  Project: \emph{#3}
   \phdtimeline{#4}{#5}{#6}{#7}%
+  \end{minipage}
 }
 
 %% Postdoc entry: name, start date, PhD institution, PhD completion date

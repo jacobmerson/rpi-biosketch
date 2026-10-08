@@ -33,10 +33,10 @@
     myamount,
 }
 \DeclareDatamodelFields[type=field,datatype=literal,label=true]{
-    status,
-    inkind
+    status
 }
 \DeclareDatamodelFields[type=field,datatype=literal]{
+    inkind,
     organization,
 }
 \DeclareDatamodelFields[type=list,datatype=name]{
@@ -48,6 +48,7 @@
     pi,
     copi,
     date,
+    inkind,
     amount,
     organization,
     status
@@ -64,5 +65,4 @@
         \constraintfield{organization}
     }
 }
-
 

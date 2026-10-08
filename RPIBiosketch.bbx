@@ -17,7 +17,7 @@
   \printtext{PI\addcolon\addspace}\printnames{pi}\newblock
   \ifnameundef{copi}{}{\printtext{Co-PI\addcolon\addspace}\printnames{copi}\newblock}
   \printtext{Award Period\addcolon\addspace}\printdate\newblock
-  \iffieldundef{inkind}{}{\printtext{In-Kind Support:\addcolon\addspace}\printfield{inkind} \newblock}
+  \iffieldundef{inkind}{}{\printtext{In-Kind Support\addcolon\addspace}\printfield{inkind} \newblock}
   \iffieldundef{amount}{}{\printtext{Funding\addcolon\addspace}\printfield[money]{amount} \newblock}
   \iffieldundef{myamount}{}{
     \printtext{My Share\addcolon\addspace}\printfield[money]{myamount}
@@ -25,6 +25,7 @@
     \newblock
   }
   \printtext{Source\addcolon\addspace}\printfield{organization}
+  \iffieldundef{note}{}{\newblock\printfield{note}}
   \usebibmacro{finentry}
 }
 
