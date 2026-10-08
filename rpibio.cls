@@ -406,7 +406,7 @@
 
 %% Postdoc entry: name, start date, PhD institution, PhD completion date
 \newcommand{\postdocentry}[4]{%
-  \item \textbf{#1} \hfill \dateto{#2}\\
+  \item \textbf{#1} \hfill #2 \\
   Ph.D.\ from #3 \hfill #4%
 }
 
